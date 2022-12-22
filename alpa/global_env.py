@@ -64,6 +64,8 @@ class GlobalConfig:
         # Which nccl to use. Possible choices: {"cupy",
         # "xla_extension"}
         self.nccl_mode = "cupy"
+        # Whether to use jit tracing
+        self.enable_jit = True
         self.enable_overlapping = False
         # Cross mesh resharding load balancing mode.
         # Possible choices: {"normal", "no_loadbalance",

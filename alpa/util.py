@@ -877,8 +877,13 @@ def trace_jaxpr_with_micro_batch(fun: lu.WrappedFun,
             avals.append(aval.update(shape=shape))
         else:
             avals.append(aval)
-    with jax.disable_jit():
+    
+    if global_config.enable_jit:
         jaxpr, _, consts = pe.trace_to_jaxpr_final(fun, avals)
+    else:
+        with jax.disable_jit():
+            jaxpr, _, consts = pe.trace_to_jaxpr_final(fun, avals)
+          
     closed_jaxpr = ClosedJaxpr(jaxpr, consts)
 
     # Restore jax.random to original stateless version
